@@ -1,4 +1,4 @@
-# 🏙️ CitySense NYC
+# CitySense NYC
 
 **ML-powered neighborhood atmosphere analysis system**
 
@@ -6,14 +6,14 @@ An end-to-end machine learning pipeline that predicts the emotional atmosphere o
 
 ![CitySense Map](outputs/citysense_map_screenshot.png)
 
-## 🎯 Project Overview
+## Project Overview
 
 CitySense uses machine learning to quantify the "feel" of NYC neighborhoods across three dimensions:
 - **Safety**: How secure a neighborhood feels
 - **Liveliness**: How active and vibrant the area is
 - **Cleanliness**: Overall maintenance and upkeep
 
-## 🚀 Features
+## Features
 
 - ✅ **Multimodal ML Pipeline**: Combines visual and structured data
 - ✅ **Real API Integration**: Google Maps Street View API
@@ -21,7 +21,7 @@ CitySense uses machine learning to quantify the "feel" of NYC neighborhoods acro
 - ✅ **Interactive Visualization**: Fully interactive map with 50 NYC neighborhoods
 - ✅ **100% Model Accuracy**: Random Forest classifier on training data
 
-## 📊 Tech Stack
+## Tech Stack
 
 **Languages & Libraries:**
 - Python 3.13
@@ -35,14 +35,14 @@ CitySense uses machine learning to quantify the "feel" of NYC neighborhoods acro
 - Google Maps Street View Static API
 - NYC Open Data (311 complaints)
 
-## 🗺️ Coverage
+## Coverage
 
 - **50 neighborhoods** across all 5 NYC boroughs
 - **200 Street View images** (4 directional views per location)
 - **7,000+ 311 complaints** analyzed
 - **12 Bronx neighborhoods** (including Parkchester & Morris Park)
 
-## 📁 Project Structure
+## Project Structure
 ```
 citysense/
 ├── data/
@@ -54,7 +54,7 @@ citysense/
 └── *.py                 # Pipeline scripts
 ```
 
-## 🔧 Installation & Setup
+## Installation & Setup
 ```bash
 # Clone the repository
 git clone https://github.com/YOUR_USERNAME/citysense.git
@@ -71,7 +71,7 @@ pip install -r requirements.txt
 # Get your Google Maps API key from: https://console.cloud.google.com/
 ```
 
-## 🏃 Running the Pipeline
+## Running the Pipeline
 ```bash
 # 1. Collect Street View images (requires API key)
 python collect_images.py
@@ -101,7 +101,7 @@ python create_map.py
 open outputs/citysense_map.html
 ```
 
-## 🤖 ML Pipeline
+##  ML Pipeline
 
 ### Data Collection
 - **311 Complaints**: Realistic synthetic data based on actual NYC patterns
@@ -141,7 +141,7 @@ The model successfully classifies neighborhoods into three categories:
 - Williamsburg: Positive (91% confidence)
 - Harlem: Neutral (68% confidence)
 
-## 🎨 Interactive Map
+## Interactive Map
 
 The final output is an interactive web map showing:
 - Color-coded neighborhoods (green/orange/red)
@@ -151,7 +151,7 @@ The final output is an interactive web map showing:
 
 **View live demo:** [Link to deployed map]
 
-## 📝 Key Learnings
+##  Key Learnings
 
 1. **Multimodal ML**: Combining different data types improves predictions
 2. **Feature Engineering**: Visual features (brightness, color) are surprisingly predictive
@@ -159,7 +159,7 @@ The final output is an interactive web map showing:
 4. **Geospatial Analysis**: Geographic clustering and spatial joins
 5. **End-to-End Pipeline**: Data collection → ML → Visualization
 
-## 🔮 Future Enhancements
+##  Future Enhancements
 
 - [ ] Integrate real-time 311 API data
 - [ ] Add temporal analysis (how neighborhoods change over time)
@@ -168,7 +168,7 @@ The final output is an interactive web map showing:
 - [ ] Expand to other US cities
 - [ ] Deploy as interactive web app
 
-## 📊 Data Sources
+##  Data Sources
 
 - **311 Complaints**: Synthetic data based on real NYC 311 patterns and demographics
 - **Street View Images**: Google Maps Street View Static API
@@ -176,20 +176,20 @@ The final output is an interactive web map showing:
 
 *Note: The ML pipeline is designed to work with real 311 data. Synthetic data demonstrates the technique and can be easily swapped with live data when the API is available.*
 
-## 🤝 Contributing
+##  Contributing
 
 This is a learning project, but suggestions are welcome! Feel free to open an issue or submit a PR.
 
-## 📄 License
+##  License
 
 MIT License - feel free to use this for learning!
 
-## 👤 Author
+##  Author
 
 **Siara Chowdhury**
 - GitHub: [@siara550](https://github.com/siara550)
-- LinkedIn: [Your Profile](https://linkedin.com/in/YOUR_PROFILE)
+- LinkedIn: (https://www.linkedin.com/in/siara-chowdhury/)
 
 ---
 
-**Built as a machine learning portfolio project • December 2024**
+**Built as a machine learning portfolio project • December 2025**
