@@ -4,7 +4,7 @@
 
 An end-to-end machine learning pipeline that predicts the emotional atmosphere of NYC neighborhoods by analyzing multimodal data from Street View images and 311 complaints.
 
-![CitySense Map](outputs/citysense_map_screenshot.png)
+![CitySense Map]https://citysense-lemon.vercel.app/
 
 ## Project Overview
 
