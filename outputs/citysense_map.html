@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e85845cd2c6c9086c1ce80721de048c0 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed; 
+    bottom: 50px; right: 50px; 
+    width: 180px;
+    border: 3px solid grey; 
+    z-index: 9999; 
+    background-color: white;
+    padding: 15px;
+    font-size: 14px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+">
+    <h4 style="margin: 0 0 10px 0;">CitySense</h4>
+    <p style="margin: 0 0 5px 0; font-size: 12px; color: #666;">
+        Neighborhood Atmosphere Predictor
+    </p>
+    <hr style="margin: 10px 0;">
+    <p style="margin: 8px 0;">
+        <span style="color: #2ecc71; font-size: 18px;">●</span> 
+        <strong>Positive</strong>
+    </p>
+    <p style="margin: 8px 0;">
+        <span style="color: #f39c12; font-size: 18px;">●</span> 
+        <strong>Neutral</strong>
+    </p>
+    <p style="margin: 8px 0;">
+        <span style="color: #e74c3c; font-size: 18px;">●</span> 
+        <strong>Negative</strong>
+    </p>
+    <hr style="margin: 10px 0;">
+    <p style="margin: 0; font-size: 10px; color: #999;">
+        Built with ML • 100% accuracy
+    </p>
+</div>
+    
+<div style="
+    position: fixed; 
+    top: 10px; 
+    left: 50px; 
+    width: 300px;
+    z-index: 9999; 
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+">
+    <h2 style="margin: 0; color: #2c3e50;">🏙️ CitySense NYC</h2>
+    <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">
+        ML-powered neighborhood atmosphere analysis
+    </p>
+</div>
+    
+            <div class="folium-map" id="map_e85845cd2c6c9086c1ce80721de048c0" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_e85845cd2c6c9086c1ce80721de048c0 = L.map(
+                "map_e85845cd2c6c9086c1ce80721de048c0",
+                {
+                    center: [40.758, -73.9855],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_06992cdb11f22f3bbc0f544c23968e10 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_06992cdb11f22f3bbc0f544c23968e10.addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var circle_marker_af92a28d7c9386696bf8a2094a6c68c5 = L.circleMarker(
+                [40.7736, -73.9566],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_1ef99feda471c81eebe07ae167eca3f5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5a1a5e5e14a94cedc78a64191b5e63a6 = $(`<div id="html_5a1a5e5e14a94cedc78a64191b5e63a6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Upper East Side         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 36</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.52</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 110</p>     </div>     </div>`)[0];
+                popup_1ef99feda471c81eebe07ae167eca3f5.setContent(html_5a1a5e5e14a94cedc78a64191b5e63a6);
+            
+        
+
+        circle_marker_af92a28d7c9386696bf8a2094a6c68c5.bindPopup(popup_1ef99feda471c81eebe07ae167eca3f5)
+        ;
+
+        
+    
+    
+            var marker_728e2cf33033716ffcd18f5ccf6287f3 = L.marker(
+                [40.7836, -73.9566],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_8f17824aa0c234702c796b326df23d6c = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Upper East Side\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_728e2cf33033716ffcd18f5ccf6287f3.setIcon(div_icon_8f17824aa0c234702c796b326df23d6c);
+            
+    
+            var circle_marker_d58764d85a9c0d299501523fffd09d74 = L.circleMarker(
+                [40.787, -73.9754],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_ac43c73e3a0e587683ff5bf79dd7d181 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a781d39a541b00a707ef03d5dcadaf28 = $(`<div id="html_a781d39a541b00a707ef03d5dcadaf28" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Upper West Side         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 35</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 131</p>     </div>     </div>`)[0];
+                popup_ac43c73e3a0e587683ff5bf79dd7d181.setContent(html_a781d39a541b00a707ef03d5dcadaf28);
+            
+        
+
+        circle_marker_d58764d85a9c0d299501523fffd09d74.bindPopup(popup_ac43c73e3a0e587683ff5bf79dd7d181)
+        ;
+
+        
+    
+    
+            var marker_9eeefcc716bfa51b3d3b15df479240c7 = L.marker(
+                [40.797, -73.9754],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_54958627b4d1b393d20202e72aa546b3 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Upper West Side\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_9eeefcc716bfa51b3d3b15df479240c7.setIcon(div_icon_54958627b4d1b393d20202e72aa546b3);
+            
+    
+            var circle_marker_d3c2ea06ac01da1a55ef99b987b27454 = L.circleMarker(
+                [40.7549, -73.984],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_e75609b44d66d2182173846109542d19 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fbee16078f2cb5af86bb81c7d5205758 = $(`<div id="html_fbee16078f2cb5af86bb81c7d5205758" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Midtown         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 109</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 6</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 115</p>     </div>     </div>`)[0];
+                popup_e75609b44d66d2182173846109542d19.setContent(html_fbee16078f2cb5af86bb81c7d5205758);
+            
+        
+
+        circle_marker_d3c2ea06ac01da1a55ef99b987b27454.bindPopup(popup_e75609b44d66d2182173846109542d19)
+        ;
+
+        
+    
+    
+            var marker_40daf1723065cf7d1ef75adbbb14cda2 = L.marker(
+                [40.7649, -73.984],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_c860eba6d5fd8ce2e50ce4489c4b8846 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Midtown\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_40daf1723065cf7d1ef75adbbb14cda2.setIcon(div_icon_c860eba6d5fd8ce2e50ce4489c4b8846);
+            
+    
+            var circle_marker_e071e25a5db97622da9779cb501e3ba7 = L.circleMarker(
+                [40.7465, -74.0014],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_7aa4089252a07a98494aec53c79540e5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_20324bc248fc30a1011e72a800e02b39 = $(`<div id="html_20324bc248fc30a1011e72a800e02b39" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Chelsea         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 86</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 141</p>     </div>     </div>`)[0];
+                popup_7aa4089252a07a98494aec53c79540e5.setContent(html_20324bc248fc30a1011e72a800e02b39);
+            
+        
+
+        circle_marker_e071e25a5db97622da9779cb501e3ba7.bindPopup(popup_7aa4089252a07a98494aec53c79540e5)
+        ;
+
+        
+    
+    
+            var marker_f69e156d46e00b891dfa4422568e801a = L.marker(
+                [40.756499999999996, -74.0014],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_897a15580edff6bbb604093d58b12ce4 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Chelsea\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_f69e156d46e00b891dfa4422568e801a.setIcon(div_icon_897a15580edff6bbb604093d58b12ce4);
+            
+    
+            var circle_marker_20a653d29e17340d0c815e410c341c43 = L.circleMarker(
+                [40.7336, -74.0027],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_b35ac536efab15f77dd51f14d0118f27 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a17b955e297b1ed9f2a84d050dd7c032 = $(`<div id="html_a17b955e297b1ed9f2a84d050dd7c032" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Greenwich Village         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 84</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 128</p>     </div>     </div>`)[0];
+                popup_b35ac536efab15f77dd51f14d0118f27.setContent(html_a17b955e297b1ed9f2a84d050dd7c032);
+            
+        
+
+        circle_marker_20a653d29e17340d0c815e410c341c43.bindPopup(popup_b35ac536efab15f77dd51f14d0118f27)
+        ;
+
+        
+    
+    
+            var marker_d0194b31025f546b88b8080a3bbbc819 = L.marker(
+                [40.7436, -74.0027],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_e3b8ee8f9e0e385ed33c9dfba804dde9 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Greenwich Village\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_d0194b31025f546b88b8080a3bbbc819.setIcon(div_icon_e3b8ee8f9e0e385ed33c9dfba804dde9);
+            
+    
+            var circle_marker_1168b1a8f064154cdc941f8780401763 = L.circleMarker(
+                [40.7264, -73.9818],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_bb26303aea6eb9ef433f307c3f059d24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c9749c1d5b58989ee50b47026202fd79 = $(`<div id="html_c9749c1d5b58989ee50b47026202fd79" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 East Village         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 105</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.54</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 118</p>     </div>     </div>`)[0];
+                popup_bb26303aea6eb9ef433f307c3f059d24.setContent(html_c9749c1d5b58989ee50b47026202fd79);
+            
+        
+
+        circle_marker_1168b1a8f064154cdc941f8780401763.bindPopup(popup_bb26303aea6eb9ef433f307c3f059d24)
+        ;
+
+        
+    
+    
+            var marker_6e3a11d6edf272dd4f18f846c0fe49fa = L.marker(
+                [40.736399999999996, -73.9818],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_05f0ded7f62e4423795b33cfe81bc661 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                East Village\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_6e3a11d6edf272dd4f18f846c0fe49fa.setIcon(div_icon_05f0ded7f62e4423795b33cfe81bc661);
+            
+    
+            var circle_marker_3df352cba2a8b1c22c64a339644ddbc4 = L.circleMarker(
+                [40.7153, -73.9874],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_3389c7acc8a0f53903988243560f2945 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5189923757a0354064c70da5b0ffa450 = $(`<div id="html_5189923757a0354064c70da5b0ffa450" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Lower East Side         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 1/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 135</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 126</p>     </div>     </div>`)[0];
+                popup_3389c7acc8a0f53903988243560f2945.setContent(html_5189923757a0354064c70da5b0ffa450);
+            
+        
+
+        circle_marker_3df352cba2a8b1c22c64a339644ddbc4.bindPopup(popup_3389c7acc8a0f53903988243560f2945)
+        ;
+
+        
+    
+    
+            var marker_36d8db660f67d342c0a4be5d27947b6b = L.marker(
+                [40.7253, -73.9874],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_95844fe0960601c14c69c3a216b2ac39 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Lower East Side\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_36d8db660f67d342c0a4be5d27947b6b.setIcon(div_icon_95844fe0960601c14c69c3a216b2ac39);
+            
+    
+            var circle_marker_eda233a96f2c1d6284603b378eadf72c = L.circleMarker(
+                [40.7074, -74.0113],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_d557255b911f7a3827c31d60606ed907 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_90ea2e3970daee74d1250d681cf0a964 = $(`<div id="html_90ea2e3970daee74d1250d681cf0a964" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Financial District         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 42</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 139</p>     </div>     </div>`)[0];
+                popup_d557255b911f7a3827c31d60606ed907.setContent(html_90ea2e3970daee74d1250d681cf0a964);
+            
+        
+
+        circle_marker_eda233a96f2c1d6284603b378eadf72c.bindPopup(popup_d557255b911f7a3827c31d60606ed907)
+        ;
+
+        
+    
+    
+            var marker_4679ff4208935d8b3f7d3234975b6529 = L.marker(
+                [40.7174, -74.0113],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_f858043edd53ed02341583491f5d6383 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Financial District\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_4679ff4208935d8b3f7d3234975b6529.setIcon(div_icon_f858043edd53ed02341583491f5d6383);
+            
+    
+            var circle_marker_5415995eae92d892576a8581d0fa871e = L.circleMarker(
+                [40.8116, -73.9465],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_3f64cfc89625dc9ad56e843073e91ab7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4df1b9a2adb0012e6079c4c207a8fabc = $(`<div id="html_4df1b9a2adb0012e6079c4c207a8fabc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Harlem         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 108</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 5</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 150</p>     </div>     </div>`)[0];
+                popup_3f64cfc89625dc9ad56e843073e91ab7.setContent(html_4df1b9a2adb0012e6079c4c207a8fabc);
+            
+        
+
+        circle_marker_5415995eae92d892576a8581d0fa871e.bindPopup(popup_3f64cfc89625dc9ad56e843073e91ab7)
+        ;
+
+        
+    
+    
+            var marker_1b223ce58c921aedb72b44a83892f3a3 = L.marker(
+                [40.8216, -73.9465],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_c2674caf62d5ece2f4e4807330e57928 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Harlem\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_1b223ce58c921aedb72b44a83892f3a3.setIcon(div_icon_c2674caf62d5ece2f4e4807330e57928);
+            
+    
+            var circle_marker_95c8229048afb60daaa161d57f1760cc = L.circleMarker(
+                [40.7957, -73.9389],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_97192e187d0963d673decad451d82d35 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_20ddf45e8183730d547e3051eeac7348 = $(`<div id="html_20ddf45e8183730d547e3051eeac7348" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 East Harlem         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 88</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 7</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.52</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 116</p>     </div>     </div>`)[0];
+                popup_97192e187d0963d673decad451d82d35.setContent(html_20ddf45e8183730d547e3051eeac7348);
+            
+        
+
+        circle_marker_95c8229048afb60daaa161d57f1760cc.bindPopup(popup_97192e187d0963d673decad451d82d35)
+        ;
+
+        
+    
+    
+            var marker_624702e808a3d8406743c2db4ecac7d0 = L.marker(
+                [40.805699999999995, -73.9389],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_bed3dc8c0747a5a5c211787ace67afab = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                East Harlem\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_624702e808a3d8406743c2db4ecac7d0.setIcon(div_icon_bed3dc8c0747a5a5c211787ace67afab);
+            
+    
+            var circle_marker_1404213da332e6c1782df7e7c980bd55 = L.circleMarker(
+                [40.8519, -73.9365],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_3534fc2466dd50b94527709de1738cbd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d553ba6784b54194edb43189f62980b0 = $(`<div id="html_d553ba6784b54194edb43189f62980b0" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Washington Heights         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 64</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 120</p>     </div>     </div>`)[0];
+                popup_3534fc2466dd50b94527709de1738cbd.setContent(html_d553ba6784b54194edb43189f62980b0);
+            
+        
+
+        circle_marker_1404213da332e6c1782df7e7c980bd55.bindPopup(popup_3534fc2466dd50b94527709de1738cbd)
+        ;
+
+        
+    
+    
+            var marker_dff64929d1fb200eb279269b4439b48e = L.marker(
+                [40.8619, -73.9365],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_db9d342f8d896df2eac9beaec74fb2f0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Washington Heights\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_dff64929d1fb200eb279269b4439b48e.setIcon(div_icon_db9d342f8d896df2eac9beaec74fb2f0);
+            
+    
+            var circle_marker_d05bfeda1097252add4acebe57b4631e = L.circleMarker(
+                [40.8677, -73.9212],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_3a97a00f9dea9c0ba877c94ae62a0555 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2e2e269a756c351b3a66e377bb3b6bb6 = $(`<div id="html_2e2e269a756c351b3a66e377bb3b6bb6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Inwood         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 57</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 141</p>     </div>     </div>`)[0];
+                popup_3a97a00f9dea9c0ba877c94ae62a0555.setContent(html_2e2e269a756c351b3a66e377bb3b6bb6);
+            
+        
+
+        circle_marker_d05bfeda1097252add4acebe57b4631e.bindPopup(popup_3a97a00f9dea9c0ba877c94ae62a0555)
+        ;
+
+        
+    
+    
+            var marker_d7cb5a98c4b40ff4dbb9409055543845 = L.marker(
+                [40.8777, -73.9212],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_4e6a81aa763e42a86cb563f9ee5b04dc = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Inwood\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_d7cb5a98c4b40ff4dbb9409055543845.setIcon(div_icon_4e6a81aa763e42a86cb563f9ee5b04dc);
+            
+    
+            var circle_marker_48cf1e0bcfac6c5bc5f092b7db2f88ad = L.circleMarker(
+                [40.7081, -73.9571],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_834c1c0cac4afb8ef65323acc6e48edf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e5f5955fe46e0669244846de628de0c3 = $(`<div id="html_e5f5955fe46e0669244846de628de0c3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Williamsburg         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 80</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 95</p>     </div>     </div>`)[0];
+                popup_834c1c0cac4afb8ef65323acc6e48edf.setContent(html_e5f5955fe46e0669244846de628de0c3);
+            
+        
+
+        circle_marker_48cf1e0bcfac6c5bc5f092b7db2f88ad.bindPopup(popup_834c1c0cac4afb8ef65323acc6e48edf)
+        ;
+
+        
+    
+    
+            var marker_482649ada04fafb92bcc9050a69be12e = L.marker(
+                [40.7181, -73.9571],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_a6f07253abbcb2213cc871d1fbd1f264 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Williamsburg\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_482649ada04fafb92bcc9050a69be12e.setIcon(div_icon_a6f07253abbcb2213cc871d1fbd1f264);
+            
+    
+            var circle_marker_d2fe909443bb860cf238998adc64d398 = L.circleMarker(
+                [40.671, -73.9778],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_42794dca23b9a229ef535a0ec9e99c98 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d7a458c1873f9b4997dc9d26132df9f = $(`<div id="html_5d7a458c1873f9b4997dc9d26132df9f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Park Slope         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 5/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 28</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.55</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 95</p>     </div>     </div>`)[0];
+                popup_42794dca23b9a229ef535a0ec9e99c98.setContent(html_5d7a458c1873f9b4997dc9d26132df9f);
+            
+        
+
+        circle_marker_d2fe909443bb860cf238998adc64d398.bindPopup(popup_42794dca23b9a229ef535a0ec9e99c98)
+        ;
+
+        
+    
+    
+            var marker_0a8dbef247a6b148afc9fd45fbf27cda = L.marker(
+                [40.681, -73.9778],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_b7ac0cd4c332faace54930cef75c8b6a = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Park Slope\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_0a8dbef247a6b148afc9fd45fbf27cda.setIcon(div_icon_b7ac0cd4c332faace54930cef75c8b6a);
+            
+    
+            var circle_marker_2d3c698b5a5b25542b8981412d9550d8 = L.circleMarker(
+                [40.6958, -73.9936],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_a899bc854277a68372eafcf611af6664 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_01c7d0dcea22fa970feb1face5089204 = $(`<div id="html_01c7d0dcea22fa970feb1face5089204" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Brooklyn Heights         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 49</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 108</p>     </div>     </div>`)[0];
+                popup_a899bc854277a68372eafcf611af6664.setContent(html_01c7d0dcea22fa970feb1face5089204);
+            
+        
+
+        circle_marker_2d3c698b5a5b25542b8981412d9550d8.bindPopup(popup_a899bc854277a68372eafcf611af6664)
+        ;
+
+        
+    
+    
+            var marker_fe8ce7867026605701b75914dee3661d = L.marker(
+                [40.705799999999996, -73.9936],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_1f8f762fb9fd1d16341d8a05875ec5e3 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Brooklyn Heights\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_fe8ce7867026605701b75914dee3661d.setIcon(div_icon_1f8f762fb9fd1d16341d8a05875ec5e3);
+            
+    
+            var circle_marker_2d1cf85177005a6577b08cb12a14227b = L.circleMarker(
+                [40.6942, -73.921],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_16aeda7a864eb3416d67c111ecf3198e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bbedc2a8cfd9af7be9be751bad901a88 = $(`<div id="html_bbedc2a8cfd9af7be9be751bad901a88" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Bushwick         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 67</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 6</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 128</p>     </div>     </div>`)[0];
+                popup_16aeda7a864eb3416d67c111ecf3198e.setContent(html_bbedc2a8cfd9af7be9be751bad901a88);
+            
+        
+
+        circle_marker_2d1cf85177005a6577b08cb12a14227b.bindPopup(popup_16aeda7a864eb3416d67c111ecf3198e)
+        ;
+
+        
+    
+    
+            var marker_b8b1c3e27e71540de4f39c5a0c1bcdc0 = L.marker(
+                [40.7042, -73.921],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_cba17ca074f4e584c66d998def271612 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Bushwick\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_b8b1c3e27e71540de4f39c5a0c1bcdc0.setIcon(div_icon_cba17ca074f4e584c66d998def271612);
+            
+    
+            var circle_marker_34a7f6913e68340ada6eec5be22480a0 = L.circleMarker(
+                [40.7033, -73.9888],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_bdce4a2147820bddb5881e3998b76f62 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_191ce383be666c131cfc75758c1f4375 = $(`<div id="html_191ce383be666c131cfc75758c1f4375" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Dumbo         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 78</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 102</p>     </div>     </div>`)[0];
+                popup_bdce4a2147820bddb5881e3998b76f62.setContent(html_191ce383be666c131cfc75758c1f4375);
+            
+        
+
+        circle_marker_34a7f6913e68340ada6eec5be22480a0.bindPopup(popup_bdce4a2147820bddb5881e3998b76f62)
+        ;
+
+        
+    
+    
+            var marker_df3630a35fb7eedbb6b3a5d880336877 = L.marker(
+                [40.7133, -73.9888],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_647e110b57db33f0e283b7bb61788d65 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Dumbo\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_df3630a35fb7eedbb6b3a5d880336877.setIcon(div_icon_647e110b57db33f0e283b7bb61788d65);
+            
+    
+            var circle_marker_dea2bf37712f3a6cd33d6870d4ee2ca1 = L.circleMarker(
+                [40.6761, -74.0087],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_90ab77109e16c40f8a11deb748087816 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c172209fcc1aa98060e3cfeadfb60f24 = $(`<div id="html_c172209fcc1aa98060e3cfeadfb60f24" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Red Hook         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 45</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 126</p>     </div>     </div>`)[0];
+                popup_90ab77109e16c40f8a11deb748087816.setContent(html_c172209fcc1aa98060e3cfeadfb60f24);
+            
+        
+
+        circle_marker_dea2bf37712f3a6cd33d6870d4ee2ca1.bindPopup(popup_90ab77109e16c40f8a11deb748087816)
+        ;
+
+        
+    
+    
+            var marker_887f03d962e90fbeb6510b50cbdc86e4 = L.marker(
+                [40.686099999999996, -74.0087],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_aff8bad7d60d5050d465133149575dc7 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Red Hook\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_887f03d962e90fbeb6510b50cbdc86e4.setIcon(div_icon_aff8bad7d60d5050d465133149575dc7);
+            
+    
+            var circle_marker_db28836a276c04d00812dea18b80e906 = L.circleMarker(
+                [40.6688, -73.9422],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_079443df6923b0770a968b3179e5532e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8fd7dc3fddc5574a5321d2736fd44609 = $(`<div id="html_8fd7dc3fddc5574a5321d2736fd44609" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Crown Heights         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 88</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 123</p>     </div>     </div>`)[0];
+                popup_079443df6923b0770a968b3179e5532e.setContent(html_8fd7dc3fddc5574a5321d2736fd44609);
+            
+        
+
+        circle_marker_db28836a276c04d00812dea18b80e906.bindPopup(popup_079443df6923b0770a968b3179e5532e)
+        ;
+
+        
+    
+    
+            var marker_d1d121ad5bc9eba246e6c2985367933c = L.marker(
+                [40.678799999999995, -73.9422],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_3d02a9c9d19604b265098a14ffbed6e2 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Crown Heights\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_d1d121ad5bc9eba246e6c2985367933c.setIcon(div_icon_3d02a9c9d19604b265098a14ffbed6e2);
+            
+    
+            var circle_marker_b90dbd440f583dc07c3cf5d0e71014b1 = L.circleMarker(
+                [40.6872, -73.9418],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_01e583250d8ebcb56a2057dcb6b4ce4c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_62d064d04d6e0a3286500ec1f23a3cb3 = $(`<div id="html_62d064d04d6e0a3286500ec1f23a3cb3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Bedford Stuyvesant         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 2/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 116</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 10</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 146</p>     </div>     </div>`)[0];
+                popup_01e583250d8ebcb56a2057dcb6b4ce4c.setContent(html_62d064d04d6e0a3286500ec1f23a3cb3);
+            
+        
+
+        circle_marker_b90dbd440f583dc07c3cf5d0e71014b1.bindPopup(popup_01e583250d8ebcb56a2057dcb6b4ce4c)
+        ;
+
+        
+    
+    
+            var marker_091c86e221c450fd09d33ad2167b325a = L.marker(
+                [40.697199999999995, -73.9418],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_74a531a51bb53c235986fc5e6f5a5160 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Bedford Stuyvesant\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_091c86e221c450fd09d33ad2167b325a.setIcon(div_icon_74a531a51bb53c235986fc5e6f5a5160);
+            
+    
+            var circle_marker_d3fdbd17b735267e1a3060a9ff3f2616 = L.circleMarker(
+                [40.6454, -74.0154],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_a1af0395331f7fec116a42977d309727 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6d660b8eb3f21e94ee693bb411b8e73b = $(`<div id="html_6d660b8eb3f21e94ee693bb411b8e73b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Sunset Park         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 62</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 4</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 132</p>     </div>     </div>`)[0];
+                popup_a1af0395331f7fec116a42977d309727.setContent(html_6d660b8eb3f21e94ee693bb411b8e73b);
+            
+        
+
+        circle_marker_d3fdbd17b735267e1a3060a9ff3f2616.bindPopup(popup_a1af0395331f7fec116a42977d309727)
+        ;
+
+        
+    
+    
+            var marker_3f30958c6131f2960315b9b366647c51 = L.marker(
+                [40.6554, -74.0154],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_631de483bac170a41c03cffa8d993275 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Sunset Park\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_3f30958c6131f2960315b9b366647c51.setIcon(div_icon_631de483bac170a41c03cffa8d993275);
+            
+    
+            var circle_marker_8b6f49a2404bb64f820389eac2e0598c = L.circleMarker(
+                [40.6266, -74.0282],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_8a3bf1103111f5fe06b7c020c4e6b675 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f3047e7195b59ef57cc791d9bd56937 = $(`<div id="html_3f3047e7195b59ef57cc791d9bd56937" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Bay Ridge         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 5/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 33</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.56</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 119</p>     </div>     </div>`)[0];
+                popup_8a3bf1103111f5fe06b7c020c4e6b675.setContent(html_3f3047e7195b59ef57cc791d9bd56937);
+            
+        
+
+        circle_marker_8b6f49a2404bb64f820389eac2e0598c.bindPopup(popup_8a3bf1103111f5fe06b7c020c4e6b675)
+        ;
+
+        
+    
+    
+            var marker_a3e81bcb58b1c5e19a932c64ab82dae7 = L.marker(
+                [40.6366, -74.0282],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_59f0e8cedfc9080a4cb3fa04cdcd27fa = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Bay Ridge\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_a3e81bcb58b1c5e19a932c64ab82dae7.setIcon(div_icon_59f0e8cedfc9080a4cb3fa04cdcd27fa);
+            
+    
+            var circle_marker_279c6811763107e8309e7e8d89817287 = L.circleMarker(
+                [40.5755, -73.9707],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_1188e398d70647ca5dd82b21a1f3e154 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_175c1d379f60c2e0849b5f83b85cbb5b = $(`<div id="html_175c1d379f60c2e0849b5f83b85cbb5b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Coney Island         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 41</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 142</p>     </div>     </div>`)[0];
+                popup_1188e398d70647ca5dd82b21a1f3e154.setContent(html_175c1d379f60c2e0849b5f83b85cbb5b);
+            
+        
+
+        circle_marker_279c6811763107e8309e7e8d89817287.bindPopup(popup_1188e398d70647ca5dd82b21a1f3e154)
+        ;
+
+        
+    
+    
+            var marker_3868af743c1b23bf0fb80eecb40d0ef5 = L.marker(
+                [40.585499999999996, -73.9707],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_b3ba0b7c723f237774388797311ce9a8 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Coney Island\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_3868af743c1b23bf0fb80eecb40d0ef5.setIcon(div_icon_b3ba0b7c723f237774388797311ce9a8);
+            
+    
+            var circle_marker_6c128ada34f0a06b77817067962c6822 = L.circleMarker(
+                [40.7304, -73.9508],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_bf35e04b09b1ca97cac2cf7ec226da25 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_53b3d28a8e4dc0022057113a43da8e13 = $(`<div id="html_53b3d28a8e4dc0022057113a43da8e13" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Greenpoint         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 53</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 121</p>     </div>     </div>`)[0];
+                popup_bf35e04b09b1ca97cac2cf7ec226da25.setContent(html_53b3d28a8e4dc0022057113a43da8e13);
+            
+        
+
+        circle_marker_6c128ada34f0a06b77817067962c6822.bindPopup(popup_bf35e04b09b1ca97cac2cf7ec226da25)
+        ;
+
+        
+    
+    
+            var marker_ab9cd1787b90e17a4b517323d0c22208 = L.marker(
+                [40.7404, -73.9508],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_8be4345f1d6a5709abb1457ed8149bc7 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Greenpoint\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_ab9cd1787b90e17a4b517323d0c22208.setIcon(div_icon_8be4345f1d6a5709abb1457ed8149bc7);
+            
+    
+            var circle_marker_3a4c9eb1461534d728b156cdac3a9113 = L.circleMarker(
+                [40.7722, -73.93],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_7a751e679f935f06da82bfc68b1c3580 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3d3d65ae59c45bb8c61a87470e0ba49c = $(`<div id="html_3d3d65ae59c45bb8c61a87470e0ba49c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Astoria         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 70</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.52</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 123</p>     </div>     </div>`)[0];
+                popup_7a751e679f935f06da82bfc68b1c3580.setContent(html_3d3d65ae59c45bb8c61a87470e0ba49c);
+            
+        
+
+        circle_marker_3a4c9eb1461534d728b156cdac3a9113.bindPopup(popup_7a751e679f935f06da82bfc68b1c3580)
+        ;
+
+        
+    
+    
+            var marker_0e4db301e1b799eb5000a42a0bc10e2c = L.marker(
+                [40.782199999999996, -73.93],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_5caf8aef6951ba17a18c0015c22a9e4c = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Astoria\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_0e4db301e1b799eb5000a42a0bc10e2c.setIcon(div_icon_5caf8aef6951ba17a18c0015c22a9e4c);
+            
+    
+            var circle_marker_0915caa41e68f4b168f51ffdc90bae28 = L.circleMarker(
+                [40.7447, -73.9485],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_edd48f41a48f19bfab87548503730c6d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d123103dd40a31ff8145991417e86a0b = $(`<div id="html_d123103dd40a31ff8145991417e86a0b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Long Island City         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 73</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 130</p>     </div>     </div>`)[0];
+                popup_edd48f41a48f19bfab87548503730c6d.setContent(html_d123103dd40a31ff8145991417e86a0b);
+            
+        
+
+        circle_marker_0915caa41e68f4b168f51ffdc90bae28.bindPopup(popup_edd48f41a48f19bfab87548503730c6d)
+        ;
+
+        
+    
+    
+            var marker_aaa580f036f180b0a8a1dbe7ab6360aa = L.marker(
+                [40.7547, -73.9485],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_1188f41713e458903a4d6598693a3f14 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Long Island City\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_aaa580f036f180b0a8a1dbe7ab6360aa.setIcon(div_icon_1188f41713e458903a4d6598693a3f14);
+            
+    
+            var circle_marker_bc403302e64e1162e8564a3c4d132f91 = L.circleMarker(
+                [40.7676, -73.8333],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_f152391521ccdfc2d29763d5fac26367 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cfb26560e34bf63671ca5731acbebba8 = $(`<div id="html_cfb26560e34bf63671ca5731acbebba8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Flushing         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 56</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 5</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 154</p>     </div>     </div>`)[0];
+                popup_f152391521ccdfc2d29763d5fac26367.setContent(html_cfb26560e34bf63671ca5731acbebba8);
+            
+        
+
+        circle_marker_bc403302e64e1162e8564a3c4d132f91.bindPopup(popup_f152391521ccdfc2d29763d5fac26367)
+        ;
+
+        
+    
+    
+            var marker_02755d8ccc5b37c1754fa3c602362ced = L.marker(
+                [40.7776, -73.8333],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_71506d4a81f2929b4e68070b07fc9495 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Flushing\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_02755d8ccc5b37c1754fa3c602362ced.setIcon(div_icon_71506d4a81f2929b4e68070b07fc9495);
+            
+    
+            var circle_marker_74acc8881d90f607dfaad0297b386dab = L.circleMarker(
+                [40.7182, -73.8448],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_a7cad715310efcd4fa8ee562dc578d25 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e7db7d2e95b318599e5c69f7a939a62d = $(`<div id="html_e7db7d2e95b318599e5c69f7a939a62d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Forest Hills         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 5/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 33</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 55</p>     </div>     </div>`)[0];
+                popup_a7cad715310efcd4fa8ee562dc578d25.setContent(html_e7db7d2e95b318599e5c69f7a939a62d);
+            
+        
+
+        circle_marker_74acc8881d90f607dfaad0297b386dab.bindPopup(popup_a7cad715310efcd4fa8ee562dc578d25)
+        ;
+
+        
+    
+    
+            var marker_64b354d7bc22a45e66b87cf65d788adc = L.marker(
+                [40.7282, -73.8448],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_d5e55edcce8c0bc78ac5df438a00dff1 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Forest Hills\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_64b354d7bc22a45e66b87cf65d788adc.setIcon(div_icon_d5e55edcce8c0bc78ac5df438a00dff1);
+            
+    
+            var circle_marker_ab9481d18f64db83b04a3940864ca437 = L.circleMarker(
+                [40.7557, -73.8831],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_58b31eb351596621da979f357bc6b85d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_588c30fb196b474056ac440228baf465 = $(`<div id="html_588c30fb196b474056ac440228baf465" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Jackson Heights         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 68</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 5</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 101</p>     </div>     </div>`)[0];
+                popup_58b31eb351596621da979f357bc6b85d.setContent(html_588c30fb196b474056ac440228baf465);
+            
+        
+
+        circle_marker_ab9481d18f64db83b04a3940864ca437.bindPopup(popup_58b31eb351596621da979f357bc6b85d)
+        ;
+
+        
+    
+    
+            var marker_2016227af695a9ce8a73e882a3410329 = L.marker(
+                [40.765699999999995, -73.8831],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_3076cbbb070046edfccbb897cdcf81a3 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Jackson Heights\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_2016227af695a9ce8a73e882a3410329.setIcon(div_icon_3076cbbb070046edfccbb897cdcf81a3);
+            
+    
+            var circle_marker_57ae6449defcb8360e5f28a055ff536b = L.circleMarker(
+                [40.7453, -73.9052],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_e5582b92897a1ed70a3dd8ab8a666bd1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cea59f2c58fb4d27ad5e13c5acd3b7aa = $(`<div id="html_cea59f2c58fb4d27ad5e13c5acd3b7aa" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Woodside         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 39</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 109</p>     </div>     </div>`)[0];
+                popup_e5582b92897a1ed70a3dd8ab8a666bd1.setContent(html_cea59f2c58fb4d27ad5e13c5acd3b7aa);
+            
+        
+
+        circle_marker_57ae6449defcb8360e5f28a055ff536b.bindPopup(popup_e5582b92897a1ed70a3dd8ab8a666bd1)
+        ;
+
+        
+    
+    
+            var marker_c729662609aab02f4aecd6351c577f43 = L.marker(
+                [40.7553, -73.9052],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_2f7b6817685ea9d90827e3e0fda342f9 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Woodside\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_c729662609aab02f4aecd6351c577f43.setIcon(div_icon_2f7b6817685ea9d90827e3e0fda342f9);
+            
+    
+            var circle_marker_e0590b39174ed2eb375f544e487d245d = L.circleMarker(
+                [40.7025, -73.7932],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_e248c31eb81a89cc8bb809450931f0a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76f4940adfbaedb02d02912b98a41b6c = $(`<div id="html_76f4940adfbaedb02d02912b98a41b6c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Jamaica         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 96</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 4</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 157</p>     </div>     </div>`)[0];
+                popup_e248c31eb81a89cc8bb809450931f0a3.setContent(html_76f4940adfbaedb02d02912b98a41b6c);
+            
+        
+
+        circle_marker_e0590b39174ed2eb375f544e487d245d.bindPopup(popup_e248c31eb81a89cc8bb809450931f0a3)
+        ;
+
+        
+    
+    
+            var marker_37f66f7b51518f9b91082866f1616460 = L.marker(
+                [40.7125, -73.7932],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_469e0d0c9763aec8525b27991df7ddaf = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Jamaica\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_37f66f7b51518f9b91082866f1616460.setIcon(div_icon_469e0d0c9763aec8525b27991df7ddaf);
+            
+    
+            var circle_marker_bff4b54cba9fc5ad959822a148045a16 = L.circleMarker(
+                [40.5833, -73.8167],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_495f58b0895f917fbdafae898a6460f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f0eca77298a551b9ca607a438b8c0767 = $(`<div id="html_f0eca77298a551b9ca607a438b8c0767" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Rockaway Beach         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 46</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 150</p>     </div>     </div>`)[0];
+                popup_495f58b0895f917fbdafae898a6460f3.setContent(html_f0eca77298a551b9ca607a438b8c0767);
+            
+        
+
+        circle_marker_bff4b54cba9fc5ad959822a148045a16.bindPopup(popup_495f58b0895f917fbdafae898a6460f3)
+        ;
+
+        
+    
+    
+            var marker_85542e2aee5613113056d307edae5bf0 = L.marker(
+                [40.5933, -73.8167],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_8579c0c2d772d58b17a34bcc7d9b0d89 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Rockaway Beach\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_85542e2aee5613113056d307edae5bf0.setIcon(div_icon_8579c0c2d772d58b17a34bcc7d9b0d89);
+            
+    
+            var circle_marker_609fc47ec7fad7acf978c6ed49e207a2 = L.circleMarker(
+                [40.8978, -73.9088],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_d63a872ed0fd93b5ae87370ee3bcb924 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ada2b35652cb47b796dd70d1d5fb6f08 = $(`<div id="html_ada2b35652cb47b796dd70d1d5fb6f08" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Riverdale         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 42</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.55</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 116</p>     </div>     </div>`)[0];
+                popup_d63a872ed0fd93b5ae87370ee3bcb924.setContent(html_ada2b35652cb47b796dd70d1d5fb6f08);
+            
+        
+
+        circle_marker_609fc47ec7fad7acf978c6ed49e207a2.bindPopup(popup_d63a872ed0fd93b5ae87370ee3bcb924)
+        ;
+
+        
+    
+    
+            var marker_efc81cb53b84ca2cac054a993c3dd3d9 = L.marker(
+                [40.907799999999995, -73.9088],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_4a6460b7d8fbf0318b2f973d96d9f0e0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Riverdale\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_efc81cb53b84ca2cac054a993c3dd3d9.setIcon(div_icon_4a6460b7d8fbf0318b2f973d96d9f0e0);
+            
+    
+            var circle_marker_793a80ddf267d6501e07515019a06f21 = L.circleMarker(
+                [40.8621, -73.8979],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_7af13b074761d8140bb75512b0db8a7c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_db1b7153e9eca57f1fbf7e5d274a9a6a = $(`<div id="html_db1b7153e9eca57f1fbf7e5d274a9a6a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Fordham         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 129</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 7</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 154</p>     </div>     </div>`)[0];
+                popup_7af13b074761d8140bb75512b0db8a7c.setContent(html_db1b7153e9eca57f1fbf7e5d274a9a6a);
+            
+        
+
+        circle_marker_793a80ddf267d6501e07515019a06f21.bindPopup(popup_7af13b074761d8140bb75512b0db8a7c)
+        ;
+
+        
+    
+    
+            var marker_64738f88ae70c2b3fd2de735150a6b23 = L.marker(
+                [40.872099999999996, -73.8979],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_2808783a880fcbe69f5df4865b8fdfa6 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Fordham\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_64738f88ae70c2b3fd2de735150a6b23.setIcon(div_icon_2808783a880fcbe69f5df4865b8fdfa6);
+            
+    
+            var circle_marker_a52c9878ba1e72112bb81282657342ae = L.circleMarker(
+                [40.881, -73.9051],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_e1def2cc34d56331d87ad1557afcdde9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_966aa011959a3673da1618edc0589d41 = $(`<div id="html_966aa011959a3673da1618edc0589d41" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Kingsbridge         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 86</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.55</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 118</p>     </div>     </div>`)[0];
+                popup_e1def2cc34d56331d87ad1557afcdde9.setContent(html_966aa011959a3673da1618edc0589d41);
+            
+        
+
+        circle_marker_a52c9878ba1e72112bb81282657342ae.bindPopup(popup_e1def2cc34d56331d87ad1557afcdde9)
+        ;
+
+        
+    
+    
+            var marker_3177a3a0b2cc9d86a2a4ef0524dfb265 = L.marker(
+                [40.891, -73.9051],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_4ecb6324c1ea1ae633ef5dc5a11e84ba = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Kingsbridge\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_3177a3a0b2cc9d86a2a4ef0524dfb265.setIcon(div_icon_4ecb6324c1ea1ae633ef5dc5a11e84ba);
+            
+    
+            var circle_marker_85b2a3087b893c25001f89b60efec651 = L.circleMarker(
+                [40.8511, -73.9188],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_ff0f870b6221c51838836f69b71b9ec1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c7f539c514002bec4964e2c5669744c = $(`<div id="html_9c7f539c514002bec4964e2c5669744c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Morris Heights         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 71</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 142</p>     </div>     </div>`)[0];
+                popup_ff0f870b6221c51838836f69b71b9ec1.setContent(html_9c7f539c514002bec4964e2c5669744c);
+            
+        
+
+        circle_marker_85b2a3087b893c25001f89b60efec651.bindPopup(popup_ff0f870b6221c51838836f69b71b9ec1)
+        ;
+
+        
+    
+    
+            var marker_9c1103787d866510b693260e3039e260 = L.marker(
+                [40.8611, -73.9188],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_156b89580686b80510e8286ce23a21f4 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Morris Heights\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_9c1103787d866510b693260e3039e260.setIcon(div_icon_156b89580686b80510e8286ce23a21f4);
+            
+    
+            var circle_marker_2561ba8dfec19ea65e8fbe9d7192321f = L.circleMarker(
+                [40.8098, -73.9223],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_af12b75d348d0131c82a42747f8c7bcf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6e0b6bddc562d9cfb5833af775d8843 = $(`<div id="html_d6e0b6bddc562d9cfb5833af775d8843" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Mott Haven         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 2/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 130</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 9</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 137</p>     </div>     </div>`)[0];
+                popup_af12b75d348d0131c82a42747f8c7bcf.setContent(html_d6e0b6bddc562d9cfb5833af775d8843);
+            
+        
+
+        circle_marker_2561ba8dfec19ea65e8fbe9d7192321f.bindPopup(popup_af12b75d348d0131c82a42747f8c7bcf)
+        ;
+
+        
+    
+    
+            var marker_ca42abf8186d0f059a39e5ab24c5c122 = L.marker(
+                [40.8198, -73.9223],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_475078dead211fdcf34c177a0fa175c0 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Mott Haven\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_ca42abf8186d0f059a39e5ab24c5c122.setIcon(div_icon_475078dead211fdcf34c177a0fa175c0);
+            
+    
+            var circle_marker_902d1eda3ed0abb157b5f1364e8bb7ae = L.circleMarker(
+                [40.8129, -73.882],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_337a7ce0992e696b5f3af72ec31a1379 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6fe91510b8feb6d0068ded8c9eff03af = $(`<div id="html_6fe91510b8feb6d0068ded8c9eff03af" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Hunts Point         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 84</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 150</p>     </div>     </div>`)[0];
+                popup_337a7ce0992e696b5f3af72ec31a1379.setContent(html_6fe91510b8feb6d0068ded8c9eff03af);
+            
+        
+
+        circle_marker_902d1eda3ed0abb157b5f1364e8bb7ae.bindPopup(popup_337a7ce0992e696b5f3af72ec31a1379)
+        ;
+
+        
+    
+    
+            var marker_cafab3f6e82cf59d2c4f5a5ed30aa48b = L.marker(
+                [40.8229, -73.882],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_1024e8788579cd42588d2520abb1247a = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Hunts Point\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_cafab3f6e82cf59d2c4f5a5ed30aa48b.setIcon(div_icon_1024e8788579cd42588d2520abb1247a);
+            
+    
+            var circle_marker_f42cdd9f25cdc673458f971bd9c9f11e = L.circleMarker(
+                [40.8566, -73.8897],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_07be2f41c4bae88cce25184f905da211 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6d24a8c0703d235f02bcea6dfd5e67c = $(`<div id="html_d6d24a8c0703d235f02bcea6dfd5e67c" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #e74c3c;">             😟 Belmont         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEGATIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 2/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 122</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 4</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 136</p>     </div>     </div>`)[0];
+                popup_07be2f41c4bae88cce25184f905da211.setContent(html_d6d24a8c0703d235f02bcea6dfd5e67c);
+            
+        
+
+        circle_marker_f42cdd9f25cdc673458f971bd9c9f11e.bindPopup(popup_07be2f41c4bae88cce25184f905da211)
+        ;
+
+        
+    
+    
+            var marker_66a05e756a7d8c6b164a81e66f9e5bbe = L.marker(
+                [40.8666, -73.8897],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_5ce19ba6be2e9123bca21254b8fe18cb = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Belmont\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_66a05e756a7d8c6b164a81e66f9e5bbe.setIcon(div_icon_5ce19ba6be2e9123bca21254b8fe18cb);
+            
+    
+            var circle_marker_dc33395467582f66869ded0f6416fde8 = L.circleMarker(
+                [40.8509, -73.8275],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_34e88222d992702839e9334f8c240e1a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fb73651d51d4b9c296e46b006a08c03b = $(`<div id="html_fb73651d51d4b9c296e46b006a08c03b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Pelham Bay         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 36</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 4</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.53</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 125</p>     </div>     </div>`)[0];
+                popup_34e88222d992702839e9334f8c240e1a.setContent(html_fb73651d51d4b9c296e46b006a08c03b);
+            
+        
+
+        circle_marker_dc33395467582f66869ded0f6416fde8.bindPopup(popup_34e88222d992702839e9334f8c240e1a)
+        ;
+
+        
+    
+    
+            var marker_6b19c8e2a1db66896e2f7daa50f246c8 = L.marker(
+                [40.8609, -73.8275],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_e11067eeb89f46ed6a485917fbee31ad = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Pelham Bay\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_6b19c8e2a1db66896e2f7daa50f246c8.setIcon(div_icon_e11067eeb89f46ed6a485917fbee31ad);
+            
+    
+            var circle_marker_34514c52a047f6ff4630d0a3d27401a9 = L.circleMarker(
+                [40.8333, -73.8603],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_641566430c860ca5c4a108c915b0aae1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fa888d156e625ea9209ee8568e86ca50 = $(`<div id="html_fa888d156e625ea9209ee8568e86ca50" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Parkchester         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 97</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 7</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 125</p>     </div>     </div>`)[0];
+                popup_641566430c860ca5c4a108c915b0aae1.setContent(html_fa888d156e625ea9209ee8568e86ca50);
+            
+        
+
+        circle_marker_34514c52a047f6ff4630d0a3d27401a9.bindPopup(popup_641566430c860ca5c4a108c915b0aae1)
+        ;
+
+        
+    
+    
+            var marker_7eb87734d19768997921a674fcb5c168 = L.marker(
+                [40.8433, -73.8603],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_896eb1ce53468ac0389619c48ae37c72 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Parkchester\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_7eb87734d19768997921a674fcb5c168.setIcon(div_icon_896eb1ce53468ac0389619c48ae37c72);
+            
+    
+            var circle_marker_a3da5e3b638f247153b46cc77832dc93 = L.circleMarker(
+                [40.8518, -73.8563],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_8ae9c8242c23ab0c42019b4d918cdd68 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ea0568e5833923e6f12e04b7d825b483 = $(`<div id="html_ea0568e5833923e6f12e04b7d825b483" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Morris Park         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 54</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 4</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 131</p>     </div>     </div>`)[0];
+                popup_8ae9c8242c23ab0c42019b4d918cdd68.setContent(html_ea0568e5833923e6f12e04b7d825b483);
+            
+        
+
+        circle_marker_a3da5e3b638f247153b46cc77832dc93.bindPopup(popup_8ae9c8242c23ab0c42019b4d918cdd68)
+        ;
+
+        
+    
+    
+            var marker_703f72eac9ce962c369527da4a71ae68 = L.marker(
+                [40.861799999999995, -73.8563],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_cd9d77bd9975e7613c406f2d932f6857 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Morris Park\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_703f72eac9ce962c369527da4a71ae68.setIcon(div_icon_cd9d77bd9975e7613c406f2d932f6857);
+            
+    
+            var circle_marker_ea6e244294a970fb99af2b2a56cd80d1 = L.circleMarker(
+                [40.8183, -73.8236],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_81434fac40abf717984e0e5e71f59625 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4973f2b3d3ce90e0c70b8e0ff27511b3 = $(`<div id="html_4973f2b3d3ce90e0c70b8e0ff27511b3" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Throggs Neck         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 5/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 32</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 0</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.53</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 121</p>     </div>     </div>`)[0];
+                popup_81434fac40abf717984e0e5e71f59625.setContent(html_4973f2b3d3ce90e0c70b8e0ff27511b3);
+            
+        
+
+        circle_marker_ea6e244294a970fb99af2b2a56cd80d1.bindPopup(popup_81434fac40abf717984e0e5e71f59625)
+        ;
+
+        
+    
+    
+            var marker_ea708586f8c916c682a5ca0b8a20c996 = L.marker(
+                [40.8283, -73.8236],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_92b447df00dafad1b40bc010e1bc8c5d = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Throggs Neck\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_ea708586f8c916c682a5ca0b8a20c996.setIcon(div_icon_92b447df00dafad1b40bc010e1bc8c5d);
+            
+    
+            var circle_marker_8603c2c9fc6a46390f7d007f2f6e452c = L.circleMarker(
+                [40.8248, -73.8622],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_fc4457a331e5d8ebd6f27326126602db = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0dd0dc78419e4eee16ba871629d9afab = $(`<div id="html_0dd0dc78419e4eee16ba871629d9afab" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Soundview         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 3/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 3/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 91</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 8</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.50</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 224</p>     </div>     </div>`)[0];
+                popup_fc4457a331e5d8ebd6f27326126602db.setContent(html_0dd0dc78419e4eee16ba871629d9afab);
+            
+        
+
+        circle_marker_8603c2c9fc6a46390f7d007f2f6e452c.bindPopup(popup_fc4457a331e5d8ebd6f27326126602db)
+        ;
+
+        
+    
+    
+            var marker_fddc1d38748eba9da7a7c2f99c666de4 = L.marker(
+                [40.8348, -73.8622],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_233acf03e7e72716f7dcbb018d17e520 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Soundview\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_fddc1d38748eba9da7a7c2f99c666de4.setIcon(div_icon_233acf03e7e72716f7dcbb018d17e520);
+            
+    
+            var circle_marker_29e197b562d9b3c1601401324929e982 = L.circleMarker(
+                [40.6437, -74.0738],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_d427ee9c3776772f878040d71a83b578 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d84a0c63041ed1bdde51907113ed5016 = $(`<div id="html_d84a0c63041ed1bdde51907113ed5016" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 St George         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 67</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.51</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 112</p>     </div>     </div>`)[0];
+                popup_d427ee9c3776772f878040d71a83b578.setContent(html_d84a0c63041ed1bdde51907113ed5016);
+            
+        
+
+        circle_marker_29e197b562d9b3c1601401324929e982.bindPopup(popup_d427ee9c3776772f878040d71a83b578)
+        ;
+
+        
+    
+    
+            var marker_4ae30df3dd0539be5809e1731f180a71 = L.marker(
+                [40.6537, -74.0738],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_c84ce09f71711372fb6d48811302ae6a = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                St George\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_4ae30df3dd0539be5809e1731f180a71.setIcon(div_icon_c84ce09f71711372fb6d48811302ae6a);
+            
+    
+            var circle_marker_e0d26208ec1e9510c255338848830207 = L.circleMarker(
+                [40.5057, -74.2429],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_630dd6247d2f31aaf5eb4a6852845bf8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6cd8ba543464a8b65567861e4ec6b69 = $(`<div id="html_d6cd8ba543464a8b65567861e4ec6b69" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Tottenville         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 5/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 26</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 1</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.52</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 135</p>     </div>     </div>`)[0];
+                popup_630dd6247d2f31aaf5eb4a6852845bf8.setContent(html_d6cd8ba543464a8b65567861e4ec6b69);
+            
+        
+
+        circle_marker_e0d26208ec1e9510c255338848830207.bindPopup(popup_630dd6247d2f31aaf5eb4a6852845bf8)
+        ;
+
+        
+    
+    
+            var marker_712ce0a6c7cea0a34a8bc1a97523b6ea = L.marker(
+                [40.515699999999995, -74.2429],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_a783654b7f9695d8574676f053c1d0af = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Tottenville\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_712ce0a6c7cea0a34a8bc1a97523b6ea.setIcon(div_icon_a783654b7f9695d8574676f053c1d0af);
+            
+    
+            var circle_marker_b4011b3eaaee86ffdfe1a7e9c830c7d7 = L.circleMarker(
+                [40.5545, -74.1507],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_5625bf39efccaf2ddc92b17dcc21c5f9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_168008f69503a9c6d96cc519e0b80bdb = $(`<div id="html_168008f69503a9c6d96cc519e0b80bdb" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 Great Kills         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 5/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 21</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.57</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 117</p>     </div>     </div>`)[0];
+                popup_5625bf39efccaf2ddc92b17dcc21c5f9.setContent(html_168008f69503a9c6d96cc519e0b80bdb);
+            
+        
+
+        circle_marker_b4011b3eaaee86ffdfe1a7e9c830c7d7.bindPopup(popup_5625bf39efccaf2ddc92b17dcc21c5f9)
+        ;
+
+        
+    
+    
+            var marker_0f84200875fd901391847ad2c3c7b68d = L.marker(
+                [40.564499999999995, -74.1507],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_b3ac53064f86aa311b7c0aa326cfd899 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Great Kills\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_0f84200875fd901391847ad2c3c7b68d.setIcon(div_icon_b3ac53064f86aa311b7c0aa326cfd899);
+            
+    
+            var circle_marker_bfda7652643858111b6a75a9601f9a86 = L.circleMarker(
+                [40.5734, -74.1157],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_80ccdb394c9c210ae8e5c04deb982cc4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_52cd1fc1e39398d6d210694789589a2e = $(`<div id="html_52cd1fc1e39398d6d210694789589a2e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #2ecc71;">             😊 New Dorp         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: POSITIVE</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 5/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 38</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 2</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 135</p>     </div>     </div>`)[0];
+                popup_80ccdb394c9c210ae8e5c04deb982cc4.setContent(html_52cd1fc1e39398d6d210694789589a2e);
+            
+        
+
+        circle_marker_bfda7652643858111b6a75a9601f9a86.bindPopup(popup_80ccdb394c9c210ae8e5c04deb982cc4)
+        ;
+
+        
+    
+    
+            var marker_ec6a712a4c20a45bc7aef2ddbd7d2e4e = L.marker(
+                [40.5834, -74.1157],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_9d410d379458c2211cfeb0ece1a24fb5 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                New Dorp\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_ec6a712a4c20a45bc7aef2ddbd7d2e4e.setIcon(div_icon_9d410d379458c2211cfeb0ece1a24fb5);
+            
+    
+            var circle_marker_1b0b510062cd9fca207395f16df4356a = L.circleMarker(
+                [40.6321, -74.1373],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_97c09e2ec17ed873262c847aa0e649d4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7234cc85bab40a2760bf1e5ef3ef93b5 = $(`<div id="html_7234cc85bab40a2760bf1e5ef3ef93b5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Port Richmond         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 59</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 4</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.54</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 122</p>     </div>     </div>`)[0];
+                popup_97c09e2ec17ed873262c847aa0e649d4.setContent(html_7234cc85bab40a2760bf1e5ef3ef93b5);
+            
+        
+
+        circle_marker_1b0b510062cd9fca207395f16df4356a.bindPopup(popup_97c09e2ec17ed873262c847aa0e649d4)
+        ;
+
+        
+    
+    
+            var marker_cee9274938f1e50102096df1f4c0dc96 = L.marker(
+                [40.6421, -74.1373],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_c234c264ace07029c557d170e325d589 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Port Richmond\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_cee9274938f1e50102096df1f4c0dc96.setIcon(div_icon_c234c264ace07029c557d170e325d589);
+            
+    
+            var circle_marker_88f254bcf71ae9ef58899e110c00ad72 = L.circleMarker(
+                [40.6268, -74.0776],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20, "stroke": true, "weight": 3}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+        var popup_5c30f8a965bccac204ec3777864f6fa4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_854e26f4a70b2c3a046285539ff81a37 = $(`<div id="html_854e26f4a70b2c3a046285539ff81a37" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; width: 250px; padding: 10px;">         <h3 style="margin: 0 0 10px 0; color: #f39c12;">             😐 Stapleton         </h3>                  <div style="background: #f0f0f0; padding: 8px; border-radius: 5px; margin-bottom: 10px;">             <strong>Prediction: NEUTRAL</strong>         </div>                  <p style="margin: 5px 0;"><strong>Scores:</strong></p>         <p style="margin: 3px 0;">🛡️ Safety: 4/5</p>         <p style="margin: 3px 0;">🎉 Liveliness: 2/5</p>         <p style="margin: 3px 0;">✨ Cleanliness: 4/5</p>                  <hr style="margin: 10px 0;">                  <p style="margin: 5px 0;"><strong>311 Data:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Total complaints: 59</p>         <p style="margin: 3px 0; font-size: 11px;">Noise: 0</p>         <p style="margin: 3px 0; font-size: 11px;">Graffiti: 3</p>                  <p style="margin: 5px 0;"><strong>Visual Features:</strong></p>         <p style="margin: 3px 0; font-size: 11px;">Green ratio: 0.49</p>         <p style="margin: 3px 0; font-size: 11px;">Brightness: 119</p>     </div>     </div>`)[0];
+                popup_5c30f8a965bccac204ec3777864f6fa4.setContent(html_854e26f4a70b2c3a046285539ff81a37);
+            
+        
+
+        circle_marker_88f254bcf71ae9ef58899e110c00ad72.bindPopup(popup_5c30f8a965bccac204ec3777864f6fa4)
+        ;
+
+        
+    
+    
+            var marker_f3850d076724a691e31626a2a6248575 = L.marker(
+                [40.6368, -74.0776],
+                {
+}
+            ).addTo(map_e85845cd2c6c9086c1ce80721de048c0);
+        
+    
+            var div_icon_0495fc2f47f64bbd8c4c60f4813ce5b1 = L.divIcon({
+  "html": "\n            \u003cdiv style=\"\n                font-size: 11pt; \n                color: white;\n                font-weight: bold;\n                text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;\n                white-space: nowrap;\n            \"\u003e\n                Stapleton\n            \u003c/div\u003e\n        ",
+  "className": "empty",
+});
+        
+    
+                marker_f3850d076724a691e31626a2a6248575.setIcon(div_icon_0495fc2f47f64bbd8c4c60f4813ce5b1);
+            
+</script>
+</html>

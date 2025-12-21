@@ -1,0 +1,31 @@
+# Virtual Environment
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# API Keys & Config
+config.py
+
+# Data (don't commit large files)
+data/raw/311_raw.csv
+data/raw/images/*.jpg
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
