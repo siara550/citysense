@@ -4,7 +4,7 @@
 
 An end-to-end machine learning pipeline that predicts the emotional atmosphere of NYC neighborhoods by analyzing multimodal data from Street View images and 311 complaints.
 
-![CitySense Map]https://citysense-lemon.vercel.app/
+CitySense Map: https://citysense-lemon.vercel.app/
 
 ## Project Overview
 
@@ -15,11 +15,11 @@ CitySense uses machine learning to quantify the "feel" of NYC neighborhoods acro
 
 ## Features
 
-- ✅ **Multimodal ML Pipeline**: Combines visual and structured data
-- ✅ **Real API Integration**: Google Maps Street View API
-- ✅ **Feature Engineering**: 15+ engineered features from images and 311 data
-- ✅ **Interactive Visualization**: Fully interactive map with 50 NYC neighborhoods
-- ✅ **100% Model Accuracy**: Random Forest classifier on training data
+- **Multimodal ML Pipeline**: Combines visual and structured data
+- **Real API Integration**: Google Maps Street View API
+- **Feature Engineering**: 15+ engineered features from images and 311 data
+- **Interactive Visualization**: Fully interactive map with 50 NYC neighborhoods
+- **100% Model Accuracy**: Random Forest classifier on training data
 
 ## Tech Stack
 
@@ -149,7 +149,7 @@ The final output is an interactive web map showing:
 - Geographic distribution across all 5 boroughs
 - Professional legend and branding
 
-**View live demo:** [Link to deployed map]
+**View live demo:** [[Link to deployed map]]:(https://citysense-lemon.vercel.app/)
 
 ##  Key Learnings
 
@@ -179,10 +179,6 @@ The final output is an interactive web map showing:
 ##  Contributing
 
 This is a learning project, but suggestions are welcome! Feel free to open an issue or submit a PR.
-
-##  License
-
-MIT License - feel free to use this for learning!
 
 ##  Author
 
